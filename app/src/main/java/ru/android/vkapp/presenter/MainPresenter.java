@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ru.android.vkapp.model.Response;
+import ru.android.vkapp.model.ResponseVk;
 import ru.android.vkapp.view.MainView;
 
 /**
@@ -52,9 +52,9 @@ public class MainPresenter {
     private String lastPostInfo;
     private boolean isResumed = false;
     private Gson mGson;
-    private List<Response.Response.Item> mPosts;
-    private HashMap<Long, Response.Response.Group> mGroups;
-    private HashMap<Long, Response.Response.Profile> mProfiles;
+    private List<ResponseVk.Response.Item> mPosts;
+    private HashMap<Long, ResponseVk.Response.Group> mGroups;
+    private HashMap<Long, ResponseVk.Response.Profile> mProfiles;
 
 
     public MainPresenter(Context context, @NonNull LoaderManager lm,
@@ -113,9 +113,9 @@ public class MainPresenter {
                 super.onComplete(response);
                 Log.d(TAG, "refreshNews response - " + response.responseString);
 
-                Response postsResponse = mGson
-                        .fromJson(response.responseString, Response.class);
-                Response.Response.Item[] posts = postsResponse.response.items;
+                ResponseVk postsResponse = mGson
+                        .fromJson(response.responseString, ResponseVk.class);
+                ResponseVk.Response.Item[] posts = postsResponse.response.items;
                 mGroups.clear();
                 mProfiles.clear();
 
@@ -133,13 +133,13 @@ public class MainPresenter {
     }
 
 
-    private void takeAuthors(Response postsResponse){
+    private void takeAuthors(ResponseVk postsResponse){
 
-        for(Response.Response.Group group : postsResponse.response.groups){
+        for(ResponseVk.Response.Group group : postsResponse.response.groups){
             mGroups.put(group.id, group);
         }
 
-        for(Response.Response.Profile profile : postsResponse.response.profiles){
+        for(ResponseVk.Response.Profile profile : postsResponse.response.profiles){
             mProfiles.put(profile.id, profile);
         }
     }
@@ -158,9 +158,9 @@ public class MainPresenter {
                 super.onComplete(response);
                 Log.d(TAG, "loadMoreItems response- " + response.responseString);
 
-                Response postsResponse = mGson
-                        .fromJson(response.responseString, Response.class);
-                Response.Response.Item[] posts = postsResponse.response.items;
+                ResponseVk postsResponse = mGson
+                        .fromJson(response.responseString, ResponseVk.class);
+                ResponseVk.Response.Item[] posts = postsResponse.response.items;
                 lastPostInfo = postsResponse.response.next_from;
                 isLoading=false;
                 for(int i=0;i<posts.length;i++){

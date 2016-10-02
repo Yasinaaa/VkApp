@@ -22,7 +22,7 @@ import java.util.List;
 
 import ru.android.vkapp.activities.PostActivity;
 import ru.android.vkapp.R;
-import ru.android.vkapp.model.Response;
+import ru.android.vkapp.model.ResponseVk;
 
 /**
  * Created by yasina on 25.09.2016.
@@ -30,15 +30,15 @@ import ru.android.vkapp.model.Response;
 public class NewsAdapter extends
         RecyclerView.Adapter<NewsAdapter.ViewHolder>{
 
-    private List<Response.Response.Item> mRecords;
-    private HashMap<Long, Response.Response.Group> mGroups = new HashMap<>();
-    private HashMap<Long, Response.Response.Profile> mProfiles = new HashMap<>();
+    private List<ResponseVk.Response.Item> mRecords;
+    private HashMap<Long, ResponseVk.Response.Group> mGroups = new HashMap<>();
+    private HashMap<Long, ResponseVk.Response.Profile> mProfiles = new HashMap<>();
     Context mContext;
 
     public NewsAdapter(Context context,
-                       List<Response.Response.Item> records,
-                       HashMap<Long, Response.Response.Group> groups,
-                       HashMap<Long, Response.Response.Profile> profiles){
+                       List<ResponseVk.Response.Item> records,
+                       HashMap<Long, ResponseVk.Response.Group> groups,
+                       HashMap<Long, ResponseVk.Response.Profile> profiles){
 
         mContext = context;
         mRecords = records;
@@ -55,7 +55,7 @@ public class NewsAdapter extends
 
     @Override
     public void onBindViewHolder(NewsAdapter.ViewHolder holder, final int position) {
-        final Response.Response.Item post = mRecords.get(position);
+        final ResponseVk.Response.Item post = mRecords.get(position);
         CardView postContainer = holder.mPostContainer;
         ImageView postAuthorPhotoView = holder.mAuthorPhotoView;
         TextView postTextView = holder.mPostTextView;
@@ -86,12 +86,12 @@ public class NewsAdapter extends
                               @NonNull ImageView authorPhotoView){
         if (source_id < 0) {
             //if author is group
-            Response.Response.Group group = mGroups.get(source_id * (-1));
+            ResponseVk.Response.Group group = mGroups.get(source_id * (-1));
             authorNameView.setText(group.name);
             drawAuthorImage(group.photo_50, authorPhotoView);
         } else {
             //if author is user
-            Response.Response.Profile profile = mProfiles.get(source_id);
+            ResponseVk.Response.Profile profile = mProfiles.get(source_id);
             authorNameView.setText(profile.first_name + " " + profile.last_name);
             drawAuthorImage(profile.photo_50, authorPhotoView);
         }
@@ -104,7 +104,7 @@ public class NewsAdapter extends
     }
 
     @Nullable
-    private String setPostImageAndGetUrl(@NonNull Response.Response.Item post,
+    private String setPostImageAndGetUrl(@NonNull ResponseVk.Response.Item post,
                                          @NonNull ImageView imageView){
         String imageUrl = null;
 

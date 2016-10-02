@@ -20,7 +20,7 @@ import java.util.List;
 
 import ru.android.vkapp.R;
 import ru.android.vkapp.adapter.NewsAdapter;
-import ru.android.vkapp.model.Response;
+import ru.android.vkapp.model.ResponseVk;
 import ru.android.vkapp.presenter.MainPresenter;
 import ru.android.vkapp.view.MainView;
 
@@ -42,10 +42,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init();
-
         mPresenter = new MainPresenter(this, getLoaderManager(), this);
         mPresenter.initVKSdk(this);
+        init();
     }
 
     private void init(){
@@ -132,9 +131,9 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void showLoading(List<Response.Response.Item> mPosts,
-                            HashMap<Long, Response.Response.Group> mGroups,
-                            HashMap<Long, Response.Response.Profile> mProfiles) {
+    public void showLoading(List<ResponseVk.Response.Item> mPosts,
+                            HashMap<Long, ResponseVk.Response.Group> mGroups,
+                            HashMap<Long, ResponseVk.Response.Profile> mProfiles) {
             if(mPosts!=null) {
                 mNewsAdapter = new NewsAdapter(getApplicationContext(),
                         mPosts, mGroups, mProfiles);

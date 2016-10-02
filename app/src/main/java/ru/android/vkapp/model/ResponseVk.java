@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by yasina on 25.09.2016.
  */
-public class Response {
+public class ResponseVk {
     @SerializedName("response")
     public Response response;
 
